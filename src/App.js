@@ -1,21 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./App.css";
 import axios from "axios";
 import { storage } from "./firebase";
 import config from "./config/index";
-import { CSVLink, CSVDownload } from "react-csv";
+import { CSVLink } from "react-csv";
 
 const App = () => {
   const { azureKey } = config;
   const [file, setItemImage] = useState(null);
   const [uploadPercentage, setuploadPercentage] = useState(0);
   const [imageURL, setImageURL] = useState("");
-  const [url, setUrl] = useState("");
-  const [Cells, setCells] = useState([]);
-  const [GetText, setGetText] = useState(false);
-  const [cellRow, setCellRow] = useState(0);
-  const [row, setRow] = useState([]);
-  const [line, setLine] = useState([]);
+  const [response, setResponse] = useState();
+  const [getText, setGetText] = useState(false);
 
   function uploadImage(e) {
     e.preventDefault();
@@ -61,54 +57,49 @@ const App = () => {
                   "Ocp-Apim-Subscription-Key": azureKey,
                 },
               };
-              axios
-                .post(
-                  "https://tableextractionmanagement.cognitiveservices.azure.com/formrecognizer/v2.1/layout/analyze",
-                  newText,
-                  config1
-                )
-                .then((res) => {
-                  console.log("Respuesta");
-                  setUrl(res.headers["operation-location"].toString());
-                  console.log(url);
-                  axios
-                    .get(url, config2)
-                    .then((response) => {
-                      console.log("data");
+              const axiosPostCall = async () => {
+                try {
+                  const res = await axios.post(
+                    "https://tableextractionmanagement.cognitiveservices.azure.com/formrecognizer/v2.1/layout/analyze",
+                    newText,
+                    config1
+                  );
+                  console.log(res);
+                  const axiosGetCall = async (res) => {
+                    try {
+                      const response = await axios.get(
+                        res.headers["operation-location"],
+                        config2
+                      );
+
                       console.log(response);
-                      if (typeof response !== undefined) {
-                        setCells(
+                      if (response.data.status === "succeeded") {
+                        console.log(response.data);
+                        setResponse(
                           response.data.analyzeResult.pageResults[0].tables[0]
-                            .cells
-                        );
-                        console.log(
-                          response.data.analyzeResult.pageResults[0].tables[0]
-                            .cells
                         );
                         setGetText(true);
-                        Cells.forEach((cell) => {
-                          cell.rowIndex !== cellRow
-                            ? addNewRow(cell.rowIndex, cell.text)
-                            : updateRow(
-                                cell.text,
-                                cell.columnIndex,
-                                response.data.analyzeResult.pageResults[0]
-                                  .tables[0].columns
-                              );
-                        });
                       }
-                    })
-                    .catch((err) => {
-                      setGetText(false);
-                      console.log(err);
-                      alert("Intente de nuevo");
-                    });
-                })
-                .catch((err) => {
-                  setGetText(false);
-                  console.log(err);
-                  alert("Intente de nuevo");
-                });
+                    } catch (error) {
+                      // enter your logic for when there is an error (ex. error toast)
+                      console.log(`error: `, error);
+                    }
+                  };
+                  axiosGetCall(res);
+                  const delay = (ms) =>
+                    new Promise((res) => setTimeout(res, ms));
+                  const axiosGetCallAgain = async () => {
+                    await delay(5000);
+                    console.log("Waited 5s");
+                    axiosGetCall(res);
+                  };
+                  axiosGetCallAgain();
+                } catch (error) {
+                  // enter your logic for when there is an error (ex. error toast)
+                  console.log(`error: `, error);
+                }
+              };
+              axiosPostCall();
             });
         }
       );
@@ -116,20 +107,6 @@ const App = () => {
       alert("First You Must Select An Image");
     }
   }
-
-  const addNewRow = (rowIndex, text) => {
-    console.log(rowIndex);
-    setCellRow(rowIndex);
-
-    setLine([text + ","]);
-  };
-
-  const updateRow = (text, columnIndex, columns) => {
-    setLine((oldarray) => [...oldarray, text + ","]);
-    if (columnIndex === columns) {
-      setRow((oldarray) => [...oldarray, line.join() + "\n"]);
-    }
-  };
 
   return (
     <div>
@@ -152,12 +129,17 @@ const App = () => {
       </div>
       <div>
         <div>
-          {GetText ? (
+          {getText ? (
             <div>
-              {row.map((line) => {
-                console.log(line);
-                return line;
+              {response.cells.map((cell, index) => {
+                return (
+                  <p key={index}>
+                    {cell.rowIndex} {cell.columnIndex} {cell.text}
+                    {"\n"}
+                  </p>
+                );
               })}
+              {<CSVLink data={response.cells}>Download me</CSVLink>}
             </div>
           ) : (
             <div>
