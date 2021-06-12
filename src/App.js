@@ -111,27 +111,27 @@ const App = () => {
   }
 
   function addNewRow(rowIndex, text) {
+    rows.push(line.toString() + "\n");
     cellRow = rowIndex;
     line = [];
     if (text.includes(",")) text = `"${text}"`;
     line.push(text);
   }
 
-  function updateRow(text, columnIndex, totalColumns) {
+  function updateRow(text, total, index) {
+    if (text.includes(",")) text = `"${text}"`;
     line.push(text);
-    if (columnIndex === totalColumns - 1) {
-      rows.push(line.toString() + "\n");
-    }
+    if (total - 1 === index) rows.push(line.toString() + "\n");
   }
 
   function organizeData(results) {
-    console.log(results);
     if (results.tables.length > 0) {
-      results.tables[0].cells.forEach((cell) => {
+      results.tables[0].cells.forEach((cell, index) => {
         cell.rowIndex !== cellRow
-          ? addNewRow(cell.rowIndex, cell.text)
-          : updateRow(cell.text, cell.columnIndex, results.tables[0].columns);
+          ? addNewRow(cell.rowIndex, cell.text, results.tables[0].rows)
+          : updateRow(cell.text, results.tables[0].cells.length, index);
       });
+      console.log(rows);
       return rows.join("");
     } else
       return "No table extracted, try again with an image that shows only a table";
