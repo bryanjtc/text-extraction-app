@@ -12,6 +12,9 @@ const App = () => {
   const [imageURL, setImageURL] = useState("");
   const [response, setResponse] = useState();
   const [getText, setGetText] = useState(false);
+  var cellRow = 0;
+  var line = [];
+  var rows = [];
 
   function uploadImage(e) {
     e.preventDefault();
@@ -26,6 +29,7 @@ const App = () => {
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100
           );
           setuploadPercentage(progress);
+          setGetText(false);
         },
         (error) => {
           //error function
@@ -75,9 +79,7 @@ const App = () => {
                       console.log(response);
                       if (response.data.status === "succeeded") {
                         console.log(response.data);
-                        setResponse(
-                          response.data.analyzeResult.pageResults[0].tables[0]
-                        );
+                        setResponse(response.data.analyzeResult.pageResults[0]);
                         setGetText(true);
                       }
                     } catch (error) {
@@ -108,6 +110,33 @@ const App = () => {
     }
   }
 
+  function addNewRow(rowIndex, text) {
+    cellRow = rowIndex;
+    line = [];
+    if (text.includes(",")) text = `"${text}"`;
+    line.push(text);
+  }
+
+  function updateRow(text, columnIndex, totalColumns) {
+    line.push(text);
+    if (columnIndex === totalColumns - 1) {
+      rows.push(line.toString() + "\n");
+    }
+  }
+
+  function organizeData(results) {
+    console.log(results);
+    if (results.tables.length > 0) {
+      results.tables[0].cells.forEach((cell) => {
+        cell.rowIndex !== cellRow
+          ? addNewRow(cell.rowIndex, cell.text)
+          : updateRow(cell.text, cell.columnIndex, results.tables[0].columns);
+      });
+      return rows.join("");
+    } else
+      return "No table extracted, try again with an image that shows only a table";
+  }
+
   return (
     <div>
       <div>
@@ -131,21 +160,13 @@ const App = () => {
         <div>
           {getText ? (
             <div>
-              {response.cells.map((cell, index) => {
-                return (
-                  <p key={index}>
-                    {cell.rowIndex} {cell.columnIndex} {cell.text}
-                    {"\n"}
-                  </p>
-                );
-              })}
-              {<CSVLink data={response.cells}>Download me</CSVLink>}
+              {<CSVLink data={organizeData(response)}>Download table</CSVLink>}
             </div>
           ) : (
             <div>
               <p>
-                Extract text from images (JPG, PNG), convert it to text output
-                format and convert it to a downloadable csv file
+                Extract tables from images (JPG, PNG), convert them to a
+                downloadable csv file
               </p>
             </div>
           )}
