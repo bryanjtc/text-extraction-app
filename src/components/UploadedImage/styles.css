@@ -1,0 +1,8 @@
+.UploadedImage {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 32px;
+  width: 50%;
+}

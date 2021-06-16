@@ -1,0 +1,29 @@
+.ChooseFileButton {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 0px;
+  width: 90%;
+  border: 1px solid #237c2c;
+  box-sizing: border-box;
+  border-radius: 5px;
+  margin-bottom: 32px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 1.5rem;
+}
+
+.ChooseFileButton::file-selector-button {
+  padding: 12px;
+  background: #237c2c;
+  box-sizing: border-box;
+  border-radius: 5px 0px 0px 5px;
+  color: white;
+  margin-right: 12px;
+  border: none;
+}
+
+.ChooseFileButton::file-selector-button:hover {
+  opacity: 0.5;
+}

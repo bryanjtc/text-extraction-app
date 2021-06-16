@@ -1,0 +1,18 @@
+.Header {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background: #237c2c;
+}
+
+.Header-text {
+  font-family: Chakra Petch;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 2.25rem;
+  color: #ffffff;
+  text-align: center;
+  margin: 36px 5px;
+}

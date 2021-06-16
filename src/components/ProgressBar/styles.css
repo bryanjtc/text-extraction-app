@@ -1,0 +1,21 @@
+progress {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  background: #e0e0e0;
+  margin-bottom: 32px;
+  height: 22px;
+  border-radius: 5px;
+}
+
+progress::-webkit-progress-bar {
+  border-radius: 5px;
+}
+progress::-webkit-progress-value {
+  border-radius: 5px;
+}
+progress::-moz-progress-bar {
+  border-radius: 5px;
+}
