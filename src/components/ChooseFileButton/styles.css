@@ -11,14 +11,20 @@
   font-family: Roboto;
   font-style: normal;
   font-weight: normal;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
 }
 
 .ChooseFileButton::file-selector-button {
   padding: 12px;
   background: #237c2c;
-  box-sizing: border-box;
-  border-radius: 5px 0px 0px 5px;
+  color: white;
+  margin-right: 12px;
+  border: none;
+}
+
+.ChooseFileButton::-webkit-file-upload-button {
+  padding: 12px;
+  background: #237c2c;
   color: white;
   margin-right: 12px;
   border: none;
