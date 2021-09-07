@@ -1,6 +1,6 @@
 // Firebase App (the core Firebase SDK) is always required and must be listed first
-import firebase from "firebase/app";
-import "firebase/storage";
+import { initializeApp } from "firebase/app"
+import { getStorage } from "firebase/storage";
 
 var firebaseConfig = {
   apiKey: String(process.env.FIREBASE_API_KEY),
@@ -11,8 +11,8 @@ var firebaseConfig = {
   appId: "1:66494411585:web:439c5e7a5c6399eb9427c0",
 };
 
-firebase.initializeApp(firebaseConfig);
+const firebaseApp = initializeApp(firebaseConfig);
 
-const storage = firebase.storage();
+const storage = getStorage(firebaseApp);
 
-export { storage, firebase as default };
+export { storage };

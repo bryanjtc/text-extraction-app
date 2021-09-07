@@ -5,18 +5,14 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+    env: 
+        REACT_APP_AZURE_KEY: ${{secrets.AZURE_KEY}}
+        REACT_APP_FIREBASE_API_KEY: ${{secrets.FIREBASE_API_KEY}}
     steps:
       - name: Checkout Repo
         uses: actions/checkout@master
       - name: Install Dependencies
         run: npm install
-      - name: Make envfile
-        uses: SpicyPizza/create-envfile@v1
-        with:
-          envkey_DEBUG: false
-          envkey_REACT_APP_AZURE_KEY: ${{secrets.AZURE_KEY}}
-          envkey_REACT_APP_FIREBASE_API_KEY: ${{secrets.FIREBASE_API_KEY}}
-          directory: <directory_name>
       - name: Build
         run: npm run build
       - name: Archive Production Artifact

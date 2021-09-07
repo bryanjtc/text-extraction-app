@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { storage } from "../../firebase";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import config from "../../config/index";
 import "./styles.css";
 
@@ -53,14 +54,13 @@ const ConvertImageButton = ({
       if (response.data.status === "succeeded") {
         console.log(response.data);
         if (!response.data.analyzeResult.pageResults[0].tables.length > 0) {
-            setGetText(false);
-            alert(
-              "No table extracted, try again with an image that shows only a table"
-            );
-          }
-        else{
-            setResponse(response.data.analyzeResult.pageResults[0]);
-            setGetText(true);
+          setGetText(false);
+          alert(
+            "No table extracted, try again with an image that shows only a table"
+          );
+        } else {
+          setResponse(response.data.analyzeResult.pageResults[0]);
+          setGetText(true);
         }
         setIsLoading(false);
       }
@@ -81,7 +81,8 @@ const ConvertImageButton = ({
     e.preventDefault();
     if (isDone) {
       if (file !== null) {
-        const uploadTask = storage.ref(`OCRImages/${file.name}`).put(file);
+        const storageRef = ref(storage, `OCRImages/${file.name}`);
+        const uploadTask = uploadBytesResumable(storageRef, file);
         uploadTask.on(
           "state_changed",
           (snapshot) => {
@@ -95,15 +96,11 @@ const ConvertImageButton = ({
             console.log(error);
           },
           () => {
-            storage
-              .ref("OCRImages")
-              .child(file.name)
-              .getDownloadURL()
-              .then((urlFirebase) => {
-                console.log(urlFirebase);
-                setImageURL(urlFirebase);
-                axiosPostCall({ url: urlFirebase });
-              });
+            getDownloadURL(uploadTask.snapshot.ref).then((urlFirebase) => {
+              console.log(urlFirebase);
+              setImageURL(urlFirebase);
+              axiosPostCall({ url: urlFirebase });
+            });
           }
         );
       } else {
