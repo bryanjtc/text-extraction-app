@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "build",
+    "public": ".next",
     "ignore": [
       "firebase.json",
       "**/.*",
@@ -12,5 +12,8 @@
         "destination": "/index.html"
       }
     ]
+  },
+  "functions": {
+    "source": "functions"
   }
 }
