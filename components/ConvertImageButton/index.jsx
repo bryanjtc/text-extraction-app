@@ -1,5 +1,5 @@
 import axios from "axios";
-import { storage } from "../../pages/firebase";
+import { storage } from "../../firebase/index";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import config from "../../config/index";
 import styles from "./styles.module.css";
