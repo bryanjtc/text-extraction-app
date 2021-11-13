@@ -1,36 +1,22 @@
 {
-  "name": "text-extraction-app",
-  "version": "0.1.0",
+  "name": "text-extraction-app-next",
   "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
   "dependencies": {
     "axios": "^0.24.0",
-    "firebase": "^9.2.0",
-    "react": "^17.0.2",
+    "firebase": "^9.4.1",
+    "next": "12.0.3",
+    "react": "17.0.2",
     "react-csv": "^2.0.3",
-    "react-dom": "^17.0.2",
-    "react-scripts": "4.0.3"
+    "react-dom": "17.0.2"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "devDependencies": {
+    "eslint": "7.32.0",
+    "eslint-config-next": "12.0.3"
   }
 }

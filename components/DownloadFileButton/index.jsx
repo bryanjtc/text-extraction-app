@@ -1,6 +1,5 @@
-import React from "react";
 import { CSVLink } from "react-csv";
-import "./styles.css";
+import styles from "./styles.module.css";
 
 const DownloadFileButton = ({ response }) => {
   var cellRow = 0;
@@ -36,7 +35,7 @@ const DownloadFileButton = ({ response }) => {
     }
   }
   return (
-    <div className="Button">
+    <div className={styles.Button}>
       {<CSVLink data={organizeData()}>Download table</CSVLink>}
     </div>
   );

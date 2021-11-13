@@ -1,4 +1,4 @@
-progress {
+progress.ProgressBar {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -10,12 +10,12 @@ progress {
   border-radius: 5px;
 }
 
-progress::-webkit-progress-bar {
+progress::-webkit-progress-bar.ProgressBar {
   border-radius: 5px;
 }
-progress::-webkit-progress-value {
+progress::-webkit-progress-value.ProgressBar {
   border-radius: 5px;
 }
-progress::-moz-progress-bar {
+progress::-moz-progress-bar.ProgressBar {
   border-radius: 5px;
 }

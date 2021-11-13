@@ -1,10 +1,9 @@
-import React from "react";
-import "./styles.css";
+import styles from "./styles.module.css";
 
 const Header = () => {
   return (
-    <div className="Header">
-      <p className="Header-text">
+    <div className={styles.Header}>
+      <p className={styles["Header-text"]}>
         Text extraction app | Convert table images to csv
       </p>
     </div>

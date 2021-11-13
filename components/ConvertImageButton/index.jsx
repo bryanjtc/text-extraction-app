@@ -1,9 +1,8 @@
-import React from "react";
 import axios from "axios";
-import { storage } from "../../firebase";
+import { storage } from "../../pages/firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import config from "../../config/index";
-import "./styles.css";
+import styles from "./styles.module.css";
 
 const ConvertImageButton = ({
   file,
@@ -109,7 +108,7 @@ const ConvertImageButton = ({
     }
   }
   return (
-    <button className="Button" onClick={uploadImage}>
+    <button className={styles.Button} onClick={uploadImage}>
       Convert Image
     </button>
   );

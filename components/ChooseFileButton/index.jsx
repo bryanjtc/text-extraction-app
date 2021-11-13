@@ -1,5 +1,4 @@
-import React from "react";
-import "./styles.css";
+import styles from "./styles.module.css";
 
 const ChooseFileButton = ({ setFile, setIsDone }) => {
   const onChange = (e) => {
@@ -9,7 +8,7 @@ const ChooseFileButton = ({ setFile, setIsDone }) => {
   return (
     <input
       type="file"
-      className="ChooseFileButton"
+      className={styles.ChooseFileButton}
       name="Image"
       onChange={onChange}
     />

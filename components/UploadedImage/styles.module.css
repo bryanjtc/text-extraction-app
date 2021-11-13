@@ -1,0 +1,11 @@
+.UploadedImageContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 32px;
+  height: 40vh;
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+}
