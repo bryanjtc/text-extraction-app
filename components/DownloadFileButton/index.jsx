@@ -22,7 +22,7 @@ const DownloadFileButton = ({ response }) => {
     if (response.tables.length > 0) {
       response.tables[0].cells.forEach((cell, index) => {
         cell.rowIndex !== cellRow
-          ? addNewRow(cell.rowIndex, cell.text, response.tables[0].rows)
+          ? addNewRow(cell.rowIndex, cell.text)
           : updateRow(cell.text, response.tables[0].cells.length, index);
       });
       console.log(rows);

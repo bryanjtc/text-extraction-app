@@ -52,7 +52,7 @@ const ConvertImageButton = ({
       console.log(response);
       if (response.data.status === "succeeded") {
         console.log(response.data);
-        if (!response.data.analyzeResult.pageResults[0].tables.length > 0) {
+        if (!(response.data.analyzeResult.pageResults[0].tables.length > 0)) {
           setGetText(false);
           alert(
             "No table extracted, try again with an image that shows only a table"
@@ -95,11 +95,13 @@ const ConvertImageButton = ({
             console.log(error);
           },
           () => {
-            getDownloadURL(uploadTask.snapshot.ref).then((urlFirebase) => {
-              console.log(urlFirebase);
-              setImageURL(urlFirebase);
-              axiosPostCall({ url: urlFirebase });
-            });
+            getDownloadURL(uploadTask.snapshot.ref)
+              .then((urlFirebase) => {
+                console.log(urlFirebase);
+                setImageURL(urlFirebase);
+                axiosPostCall({ url: urlFirebase });
+              })
+              .catch((error) => console.log(error));
           }
         );
       } else {
