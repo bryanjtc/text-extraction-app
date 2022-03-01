@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "axios": "^0.25.0",
+    "axios": "^0.26.0",
     "cloudinary-core": "^2.12.3",
     "firebase": "^9.6.5",
     "lodash": "^4.17.21",
