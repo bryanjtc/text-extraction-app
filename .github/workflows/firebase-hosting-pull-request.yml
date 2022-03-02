@@ -27,5 +27,5 @@ jobs:
         with:
           target: minor
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_PROYECTO_BG_TALLER }}'
-          projectId: proyecto-bg-taller
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_TEXT_EXTRACTION_APP }}'
+          projectId: text-extraction-app
