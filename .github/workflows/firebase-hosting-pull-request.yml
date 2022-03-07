@@ -19,13 +19,3 @@ jobs:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_TEXT_EXTRACTION_APP }}'
           projectId: text-extraction-app
-  automerge:
-    needs: build_and_preview
-    runs-on: ubuntu-latest
-    steps:
-      - uses: fastify/github-action-merge-dependabot@v2.7.1
-        with:
-          target: minor
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_TEXT_EXTRACTION_APP }}'
-          projectId: text-extraction-app
