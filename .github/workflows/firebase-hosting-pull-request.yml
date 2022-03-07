@@ -23,7 +23,7 @@ jobs:
     needs: build_and_preview
     runs-on: ubuntu-latest
     steps:
-      - uses: fastify/github-action-merge-dependabot@v2.5.0
+      - uses: fastify/github-action-merge-dependabot@v2.7.1
         with:
           target: minor
           github-token: ${{ secrets.GITHUB_TOKEN }}
