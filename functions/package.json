@@ -13,12 +13,12 @@
   },
   "main": "index.js",
   "dependencies": {
-    "cors": "^2.8.5",
-    "firebase-admin": "^10.0.2",
-    "firebase-functions": "^3.18.1"
+    "cors": "2.8.5",
+    "firebase-admin": "10.0.2",
+    "firebase-functions": "3.18.1"
   },
   "devDependencies": {
-    "firebase-functions-test": "^0.3.3"
+    "firebase-functions-test": "0.3.3"
   },
   "private": true
 }
