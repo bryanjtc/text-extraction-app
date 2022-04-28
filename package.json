@@ -11,7 +11,7 @@
   "dependencies": {
     "axios": "0.27.2",
     "cloudinary-core": "2.12.3",
-    "firebase": "9.6.11",
+    "firebase": "9.7.0",
     "lodash": "4.17.21",
     "next": "12.1.5",
     "react": "18.1.0",
