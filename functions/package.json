@@ -18,7 +18,7 @@
     "firebase-functions": "3.21.0"
   },
   "devDependencies": {
-    "firebase-functions-test": "2.0.1"
+    "firebase-functions-test": "2.0.2"
   },
   "private": true
 }
