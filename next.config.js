@@ -1,4 +1,5 @@
 module.exports = {
+  output: 'export',
   reactStrictMode: true,
   images: {
     domains: ["upload.wikimedia.org", "firebasestorage.googleapis.com"],
